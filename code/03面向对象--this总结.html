@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div>div</div>
+	</body>
+	<script type="text/javascript">
+		function fn() {
+			// 当函数没有调用的时候 里面的this是不确定的  只有调用的时候知道this指向谁 
+			console.log(this); 
+		}
+		//函数有几种调用方式：
+			
+		//fn(); // 函数的直接调用
+		
+		var obj = {
+			
+			abc:function(){
+				console.log(this); // 当一个对象在调用这个方法 那么这个方法里面this 指向该对象
+			}
+			
+		};
+		
+		//obj.abc();
+		
+		
+		document.getElementsByTagName("div")[0].onclick = function() {
+			console.log(this); // 当事件在调用这个函数 那么这个函数内部的this 指向触发该事件前面的那个元素
+		}/*
+		  * 
+		  * document.getElementsByTagName("div")[0] = {
+		  * 	
+		  * onclick:function(){
+		  * 	
+		  * }
+		  * 
+		  * }
+		  * 
+		  * 
+		  * 
+		  * 
+		  * */
+		 //document.getElementsByTagName("div")[0].onclick();
+		 
+		 
+		 
+		 setInterval(function(){
+		 	
+		 	console.log(this);
+		 	
+		 },1000)
+		 
+		 
+		 
+	</script>
+</html>

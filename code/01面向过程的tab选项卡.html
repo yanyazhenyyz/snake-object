@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box input{
+				width: 70px;
+				height: 30px;
+				background-color: orange;
+				border:0;
+				cursor: pointer;
+				outline: none;
+			}
+			#box div {
+				width: 250px;
+				height: 200px;
+				text-align: center;
+				line-height: 200px;
+				font-size: 30px;
+				display: none;
+				background-color: pink;
+			}
+			#box input.active {
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<input type="button" value="按钮1" class="active" />
+			<input type="button" value="按钮2" />
+			<input type="button" value="按钮3" />
+			<div style="display: block;">内容1</div>
+			<div>内容2</div>
+			<div>内容3</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+			var oBox = document.getElementById("box");
+			var aInp = oBox.getElementsByTagName("input");
+			var aDiv = oBox.getElementsByTagName("div");
+			
+			for(var i = 0; i < aInp.length; i++) {
+				
+				aInp[i].index = i;
+				aInp[i].onclick = function() {
+					// 暴力清楚法
+					for(var i = 0; i < aInp.length; i++) {
+						
+						aInp[i].className = "";
+						aDiv[i].style.display = "none";
+						
+					}
+					
+					aInp[this.index].className = "active";
+					aDiv[this.index].style.display = "block";
+					
+				}
+				
+				
+			}
+	</script>
+</html>

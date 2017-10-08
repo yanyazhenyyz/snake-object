@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box input{
+				width: 70px;
+				height: 30px;
+				background-color: orange;
+				border:0;
+				cursor: pointer;
+				outline: none;
+			}
+			#box div {
+				width: 250px;
+				height: 200px;
+				text-align: center;
+				line-height: 200px;
+				font-size: 30px;
+				display: none;
+				background-color: pink;
+			}
+			#box input.active {
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<input type="button" value="按钮1" class="active" />
+			<input type="button" value="按钮2" />
+			<input type="button" value="按钮3" />
+			<div style="display: block;">内容1</div>
+			<div>内容2</div>
+			<div>内容3</div>
+		</div>
+		
+	</body>
+	<script>
+		
+		// 面向对象  把这个选项卡功能 抽象成一个对象 Tab 给这个对象里面添加属性和方法   属性就是那些需要操作的元素，
+		// 还有一些需要初始化的基础数据 也可以作为属性存在
+		// 方法： 单击input 实现对应的div显示  这个方法 可以挂载Tab构造函数的原型上  如果由多个方法 那么最好不要嵌套，
+		// 分开写  面向对象最大的特点 就是 实现功能 分治
+		
+		
+		// 技巧： 将面向过程 写法 改成面向对象的时候 注意：
+			/*1  尽可能将全局的变量 变成 对象的属性  
+			2  将需要实现的方法 分开来写  写在构造函数的原型上 
+			3  最后注意检查this的指向是否有问题 如果有问题  可以更改this指向  
+					(哪些地方容易发生this问题   1 事件触发的函数里面  2 定时器里面)*/
+					
+					
+		// 先包一个函数自调用的架子 为了保护内部的变量和函数 提供一个命名空间 防止全局污染
+		(function(window){
+			
+			// 把这选项卡整体功能抽象成构造函数
+			function Tab(id) {
+				
+				// 获取选项卡的父级
+				this.parent = document.getElementById(id);
+				// 挂载里面的元素
+				this.input = this.parent.getElementsByTagName("input");
+				this.div = this.parent.getElementsByTagName("div");
+				// 调用初始化方法
+				this.init();
+			}
+			// 添加一个初始化方法 用来做一些数据初始化执行 或者将各个小方法集成到init方法
+			Tab.prototype.init = function() {
+				var that = this;
+				for(var i = 0; i < this.input.length; i++) {
+					
+					this.input[i].index = i;
+					
+					this.input[i].onclick = function(){
+						
+						that.TabFn(this.index);
+					};
+					
+				}
+				
+			}
+			Tab.prototype.TabFn = function(idx) {
+				//console.log(this);// this这里不再是 隐式对象虚拟对象 而是单击的元素input
+				// 先暴力清除
+				for(var i = 0; i < this.input.length; i++) {
+					
+					this.input[i].className = "";
+					this.div[i].style.display = "none";
+					
+				}
+				
+				this.input[idx].className = "active";
+				this.div[idx].style.display = "block";
+				
+			}
+			
+			window.Tab = Tab;
+		})(window);
+	</script>
+	<script type="text/javascript">
+		
+		var t1 = new Tab("box");
+		var t2 = new Tab("box2");
+		
+	</script>
+</html>

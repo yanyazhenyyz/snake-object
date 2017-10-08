@@ -1,0 +1,64 @@
+		<!--
+			第一步  搭建页面
+				创建一个map的div元素
+				设置一个一下map地图的样式
+				
+				考虑表演角色
+					食物对象  
+					function Food(x,y,width,height,color){
+						this.x = x || 0
+						this.y = 
+						this.color = color || "green";
+					}
+						对象的属性：往构造函数里面去写这些属性	
+							位置（x,y） 宽高width  height  color 
+						对象的方法：往构造函数原型上面写
+					Food.prototype.render = function(){}
+							渲染方法  将食物渲染到map地图上 render()
+								1 创建食物元素div  
+								2给div食物添加数据
+								3把div放入map里面
+					
+					蛇对象
+						function Snake(width,height,direction){
+							
+							this.width = width || 20;
+							
+							this.direction = direction || "right";
+							
+							this.body = [
+								{x:3,y:2,color:"red"},
+								{},
+								{}
+							]
+						}
+						
+						属性： width  height 身体body ==数组 [{},{},{}];  蛇的方向diection
+						三个不同的蛇的部分  可以把三个部位  存在一个数组 
+						而每一个部分需要单独细致的去描述一下 （每一个部位的坐标不一样  颜色不一样）
+						
+						方法： 把蛇渲染到页面map上
+						Snake.prototype.render = function(){
+							
+							根据身体body数组 循环 生成div  往页面map上放  将蛇的每一个部位根据坐标和颜色
+							依次放入map里面
+						}					
+					
+					
+					地图(一个静止的对象 没什么事情可写)
+			
+			
+			
+			总的一个大的对象 game 让它去同一管理各个子对象 
+			function Game(map) {
+				
+				this.Food = new Food();
+				this.Snake =new Snake();
+				this.map = map;
+			}
+			//最后一个一键 触发 方法 start
+			Game.prototype.start = function(){
+				
+			}
+			
+		-->
